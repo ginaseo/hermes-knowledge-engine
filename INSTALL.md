@@ -9,8 +9,8 @@
 
 ```bash
 # 1. Clone the repository
-git clone <repo-url>
-cd hermes-agent
+git clone https://github.com/ginaseo/gina-agent.git
+cd gina-agent
 
 # 2. Create a virtual environment
 python -m venv .venv

@@ -1,6 +1,6 @@
-# Hermes Agent
+# Gina Agent
 
-A local knowledge pipeline that processes Slack exports into a structured Obsidian vault using an LLM.
+A personal knowledge pipeline that automatically collects Slack messages and processes them into a structured Obsidian vault using an LLM.
 
 ---
 
@@ -22,8 +22,8 @@ A local knowledge pipeline that processes Slack exports into a structured Obsidi
 
 ```bash
 # Clone and set up a virtual environment
-git clone <repo-url>
-cd hermes-agent
+git clone https://github.com/ginaseo/gina-agent.git
+cd gina-agent
 python -m venv .venv
 .venv\Scripts\activate      # Windows
 # source .venv/bin/activate  # Linux/macOS
@@ -115,7 +115,7 @@ knowledge/summary/
 ## Folder Structure
 
 ```
-hermes-agent/
+gina-agent/
 ├── processor/
 │   ├── config.py               # Centralized env config + fail-fast validation
 │   ├── log.py                  # Logging setup (thread-local capture)
