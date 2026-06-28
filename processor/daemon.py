@@ -24,6 +24,8 @@ _TICK = 10  # seconds between scheduling checks
 
 _DEFAULT_SCHEDULE = """\
 jobs:
+  slack:
+    every: 5m
   markdown:
     every: 5m
   wiki:
@@ -50,6 +52,7 @@ retry:
 """
 
 _PROCESSOR_MAP: dict[str, str] = {
+    "slack": "ingest.providers.slack.SlackProvider",
     "markdown": "processor.markdown_processor.MarkdownProcessor",
     "wiki": "processor.wiki_processor.WikiProcessor",
     "summary": "processor.summary_processor.SummaryProcessor",

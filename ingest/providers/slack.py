@@ -1,6 +1,6 @@
 import os
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
 from dotenv import load_dotenv
 from slack_sdk import WebClient
@@ -26,6 +26,9 @@ class SlackProvider(BaseProvider):
         self.token = os.getenv("SLACK_BOT_TOKEN")
         self.channel = os.getenv("SLACK_CHANNEL_ID")
 
+    def process(self):
+        self.run()
+
     def connect(self):
 
         self.client = WebClient(token=self.token)
@@ -34,10 +37,7 @@ class SlackProvider(BaseProvider):
 
     def fetch(self):
 
-        response = self.client.conversations_history(
-            channel=self.channel,
-            limit=5
-        )
+        response = self.client.conversations_history(channel=self.channel, limit=5)
 
         return response["messages"]
 
@@ -79,12 +79,7 @@ class SlackProvider(BaseProvider):
                 print(text)
 
                 print("\nUnicode Code Points")
-                print(
-                    " ".join(
-                        hex(ord(ch))
-                        for ch in text[:50]
-                    )
-                )
+                print(" ".join(hex(ord(ch)) for ch in text[:50]))
 
                 print("-" * 80)
                 # ---------------------------
