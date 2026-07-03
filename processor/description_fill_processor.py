@@ -187,6 +187,4 @@ class DescriptionFillProcessor:
 
     def _save_sources_done(self, data: dict[str, list[str]]) -> None:
         SOURCES_FILE.parent.mkdir(parents=True, exist_ok=True)
-        SOURCES_FILE.write_text(
-            json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
-        )
+        SOURCES_FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
