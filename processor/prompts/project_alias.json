@@ -4,5 +4,8 @@
     "Hermes System": "Hermes",
     "Hermes Dashboard": "Hermes",
     "Hermes Gateway": "Hermes",
-    "Hermes CLI": "Hermes"
+    "Hermes CLI": "Hermes",
+    "장애대응": "장애 대응",
+    "장애 대응 및 배포 가이드": "장애 대응",
+    "배포 및 장애 대응": "장애 대응"
 }

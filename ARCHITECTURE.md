@@ -25,6 +25,10 @@ Input:  HermesVault/slack/          (raw Slack markdown exports)
         knowledge/entity/          knowledge/keywords/    knowledge/related/
         projects/, people/, wiki/
           │
+          ▼ (after entity + related)
+        DescriptionFillProcessor   enriches wiki/{Technology,Organization,Concept}
+                                    TODO stubs using matching summary + related text
+          │
           ▼ (always runs)
         Cleaner                    removes invalid/empty stub files
         VaultIndexer               builds index/vault_index.json
