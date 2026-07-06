@@ -9,8 +9,8 @@
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/ginaseo/gina-agent.git
-cd gina-agent
+git clone https://github.com/ginaseo/gina-knowledge-engine.git
+cd gina-knowledge-engine
 
 # 2. Create a virtual environment
 python -m venv .venv

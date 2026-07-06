@@ -22,8 +22,8 @@ A personal knowledge pipeline that automatically collects Slack messages and pro
 
 ```bash
 # Clone and set up a virtual environment
-git clone https://github.com/ginaseo/gina-agent.git
-cd gina-agent
+git clone https://github.com/ginaseo/gina-knowledge-engine.git
+cd gina-knowledge-engine
 python -m venv .venv
 .venv\Scripts\activate      # Windows
 # source .venv/bin/activate  # Linux/macOS
@@ -115,7 +115,7 @@ knowledge/summary/
 ## Folder Structure
 
 ```
-gina-agent/
+gina-knowledge-engine/
 ├── processor/
 │   ├── config.py               # Centralized env config + fail-fast validation
 │   ├── log.py                  # Logging setup (thread-local capture)

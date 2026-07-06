@@ -2,7 +2,7 @@
 
 ## Overview
 
-Hermes Agent is a sequential processor pipeline. Each stage reads from the previous
+Gina Agent is a sequential processor pipeline. Each stage reads from the previous
 stage's output. Incremental state tracking ensures only changed files are reprocessed.
 
 ---

@@ -3,8 +3,8 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "hermes-agent"
-version = "1.0.0"
+name = "gina-knowledge-engine"
+version = "1.2.0"
 description = "LLM-powered knowledge pipeline for Slack markdown exports"
 readme = "README.md"
 requires-python = ">=3.13"

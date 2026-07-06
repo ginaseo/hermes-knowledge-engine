@@ -1,5 +1,39 @@
 # Changelog
 
+## v1.2.0 (2026-07-06)
+
+### Added
+
+**Gina MCP server** (Phase 1)
+- `processor/mcp/server.py` — `search()`, `build_context()`, `health()` tools over stdio
+- Path-traversal guard, timeout handling, tool registration
+- `pyproject.toml` — `gina-mcp` CLI entry point
+- `tests/test_mcp_server.py` — 7 tests (search/build_context/health, empty search, invalid id, path traversal, vault-missing, timeout)
+
+**Description fill processor**
+- `processor/description_fill_processor.py` — enriches wiki TODO stubs with LLM-generated descriptions
+- `processor/prompts/description_fill_prompt.txt`
+- `project_alias.json` — normalizes name variants (e.g. "장애 대응") to prevent duplicate stubs
+- `tests/test_description_fill_processor.py` — 8 tests
+
+**Ingestion providers**
+- `ingest/providers/krx.py` — `KRXProvider` reads daily KOSPI200/briefing JSON, converts to markdown, dedupes by date
+- `ingest/providers/slack.py` — `SLACK_CHANNEL_IDS` (comma-separated) support, falls back to `SLACK_CHANNEL_ID` for backward compat; each channel saved as separate dated markdown
+
+### Changed
+- `processor/retrieval.py` — Korean character support (`[가-힣]+`), fixed entity stem suffix (`-entity` not `-summary`), filters generic entities from benchmark questions
+- `processor/related_processor.py` — injects existing doc list into prompt to prevent hallucinated `[[wikilinks]]`
+- Summary prompt — removed Slack-specific wording, uses generic `{markdown}` placeholder
+- `processor/evaluator.py` — replaced Unicode minus with ASCII in log output (cp949 console compat)
+- Broken reference check — now includes `wiki/projects` and `wiki/people`
+- Project renamed `gina-agent` → `gina-knowledge-engine` (repo URL, package name)
+- Total: **129 tests**
+
+### Fixed
+- `requirements.txt` — `mcp` dependency was missing despite being declared in `pyproject.toml`
+
+---
+
 ## v1.1.0 (2026-06-28)
 
 ### Added
