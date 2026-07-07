@@ -50,9 +50,6 @@ See [INSTALL.md](INSTALL.md) for full setup instructions.
 | `SLACK_CHANNEL_IDS` | Yes | Comma-separated Slack channel IDs |
 | `HERMES_VAULT` | No | Path to vault directory (default: `./HermesVault`) |
 | `LOG_LEVEL` | No | Logging level: `DEBUG`, `INFO`, `WARNING` (default: `INFO`) |
-| `HERMES_MODEL` | Yes | LLM model name |
-| `SLACK_BOT_TOKEN` | Yes | Slack Bot Token |
-| `SLACK_CHANNEL_IDS` | Yes | Comma-separated Slack channel IDs |
 
 Set these in a `.env` file in the project root.
 
