@@ -176,13 +176,6 @@ def health() -> dict:
     }
 
 
-def main() -> None:
-    mcp.run(transport="stdio")
-
-
-if __name__ == "__main__":
-    main()
-
 
 @mcp.tool()
 def evaluate() -> dict:
@@ -297,3 +290,11 @@ def timeline(
         return result
     except Exception as e:
         _error("INTERNAL", str(e), True)
+
+
+def main() -> None:
+    mcp.run(transport="stdio")
+
+
+if __name__ == "__main__":
+    main()
