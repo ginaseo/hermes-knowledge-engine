@@ -1,4 +1,109 @@
 # Changelog
+## v1.2.1 (2026-07-07)
+
+### Added
+
+**Phase 4 MCP Tools**
+- `processor/evaluator.py`
+  - Added `evaluate()` MCP tool for vault quality analysis and health score
+- `processor/briefing.py`
+  - Added `briefing()` MCP tool for daily knowledge briefing
+- `processor/recommend.py`
+  - Added `recommend()` MCP tool for stock/job recommendations using the knowledge graph
+- `processor/timeline.py`
+  - Added `timeline()` MCP tool for chronological knowledge history
+
+### Changed
+
+- `processor/mcp/server.py`
+  - Registered Phase 4 MCP tools:
+    - `evaluate()`
+    - `briefing()`
+    - `recommend()`
+    - `timeline()`
+  - Moved `main()` to the bottom of the file so every `@mcp.tool()` decorator is registered before `mcp.run()`
+- `processor/llm/client.py`
+  - Replaced hard-coded model (`hermes-agent`) with configurable LLM model for OpenAI-compatible APIs
+- `.env`
+  - Added OpenAI-compatible API configuration
+  - Added DeepSeek API configuration
+  - Added Slack multi-channel configuration
+
+### Fixed
+
+- Fixed MCP tool discovery issue where only three tools (`search`, `build_context`, `health`) were exposed because `mcp.run()` executed before remaining tools were registered.
+- Fixed SummaryProcessor failing due to missing LLM environment variables.
+- Fixed invalid model configuration causing `404 model_not_found`.
+- Fixed OpenAI quota issue by migrating the pipeline to DeepSeek API.
+- Fixed Hermes Gateway integration so all Phase 4 tools are discoverable.
+
+### Verified
+
+**Knowledge Pipeline**
+- ✅ Slack → Markdown
+- ✅ Markdown → Summary
+- ✅ Summary → Entity
+- ✅ Entity → Keyword
+- ✅ Keyword → Related
+- ✅ Wiki Generation
+- ✅ Vault Index
+- ✅ Validator
+
+**Hermes Gateway**
+- ✅ Gateway connected
+- ✅ MCP connected
+- ✅ `hermes mcp test gina` passed
+- ✅ 7 MCP tools discovered
+
+**Available MCP Tools**
+1. `search()`
+2. `build_context()`
+3. `health()`
+4. `evaluate()`
+5. `briefing()`
+6. `recommend()`
+7. `timeline()`
+
+**LLM**
+- ✅ DeepSeek API integration
+- ✅ OpenAI-compatible endpoint
+- ✅ Summary generation working
+
+### Result
+
+The Gina Knowledge Engine now provides a complete end-to-end knowledge pipeline:
+
+```
+Slack / KRX / Future Providers
+            │
+         Ingest
+            │
+      Markdown Processor
+            │
+ Summary → Entity → Keyword → Related
+            │
+         Wiki Builder
+            │
+       Vault Indexer
+            │
+        HermesVault
+            │
+        Gina MCP Server
+            │
+Hermes Gateway (7 MCP Tools)
+            │
+Dashboard / CLI / AI Agent
+```
+
+Phase 4 is complete.
+
+Remaining roadmap:
+- Phase 5 Production
+- Scheduler / Systemd automation
+- Continuous knowledge accumulation
+- Long-term RAG quality improvements
+
+---
 
 ## v1.2.0 (2026-07-06)
 
