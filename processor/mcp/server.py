@@ -176,7 +176,6 @@ def health() -> dict:
     }
 
 
-
 @mcp.tool()
 def evaluate() -> dict:
     """Return vault statistics, quality metrics, health score, and learning score."""

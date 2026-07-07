@@ -17,9 +17,7 @@ INDEX_FILE = VAULT / "index" / "vault_index.json"
 
 
 class BriefingProcessor:
-    def run(
-        self, date: str | None = None, channel: str | None = None
-    ) -> dict:
+    def run(self, date: str | None = None, channel: str | None = None) -> dict:
         """
         Args:
             date: YYYY-MM-DD (default: today)
@@ -35,11 +33,7 @@ class BriefingProcessor:
             }
         """
         now = datetime.now(timezone.utc)
-        target = (
-            datetime.fromisoformat(date).replace(tzinfo=timezone.utc)
-            if date
-            else now
-        )
+        target = datetime.fromisoformat(date).replace(tzinfo=timezone.utc) if date else now
         start = target.replace(hour=0, minute=0, second=0, microsecond=0)
         end = start + timedelta(days=1)
 
@@ -86,9 +80,7 @@ class BriefingProcessor:
 
         total_docs = 0
         if INDEX_FILE.exists():
-            docs = json.loads(
-                INDEX_FILE.read_text(encoding="utf-8")
-            )
+            docs = json.loads(INDEX_FILE.read_text(encoding="utf-8"))
             total_docs = len(docs)
 
         date_str = target.strftime("%Y-%m-%d")
@@ -103,9 +95,7 @@ class BriefingProcessor:
         ]
 
         for summary in new_summaries[:5]:
-            lines.append(
-                f"  - {summary['file']}: {summary['preview'][:100]}"
-            )
+            lines.append(f"  - {summary['file']}: {summary['preview'][:100]}")
 
         message = "\n".join(lines)
 
