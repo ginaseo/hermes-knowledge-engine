@@ -36,6 +36,7 @@ class KeywordProcessor:
             return
 
         generated = 0
+        prompt_template = PROMPT.read_text(encoding="utf-8")
 
         with LLMClient() as client:
             for file in files:
@@ -45,21 +46,7 @@ class KeywordProcessor:
 
                 logger.info(f"[KEYWORD] {file.name}")
                 summary = file.read_text(encoding="utf-8")
-                prompt = f"""
-아래 문서를 읽고
-
-중요 키워드만 추출해주세요.
-
-조건
-
-- Markdown
-- 최대 10개
-- 중복 제거
-
-======================
-
-{summary}
-"""
+                prompt = prompt_template.replace("{summary}", summary)
 
                 try:
                     keywords = client.ask(prompt)

@@ -1,5 +1,7 @@
 import hashlib
 import json
+import os
+import tempfile
 import threading
 from pathlib import Path
 
@@ -40,8 +42,8 @@ class LLMCache:
                 data = existing
             else:
                 data = self.cache
-            CACHE_FILE.write_text(
-                json.dumps(data, ensure_ascii=False, indent=2),
-                encoding="utf-8",
-            )
+            fd, tmp_path = tempfile.mkstemp(dir=CACHE_DIR, suffix=".tmp")
+            with os.fdopen(fd, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+            os.replace(tmp_path, CACHE_FILE)
         self._dirty = False

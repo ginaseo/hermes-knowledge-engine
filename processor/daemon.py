@@ -90,6 +90,9 @@ def _parse_interval(value: str) -> int:
     return int(v)
 
 
+_MAX_RETRY_WAIT = 600  # cap so a misconfigured schedule.yaml can't stall the daemon
+
+
 @dataclass
 class RetryPolicy:
     count: int = 3
@@ -98,10 +101,12 @@ class RetryPolicy:
 
     def wait_for(self, attempt: int) -> float:
         if self.backoff == "exponential":
-            return self.delay * (2**attempt)
-        if self.backoff == "linear":
-            return self.delay * (attempt + 1)
-        return float(self.delay)
+            wait = self.delay * (2**attempt)
+        elif self.backoff == "linear":
+            wait = self.delay * (attempt + 1)
+        else:
+            wait = float(self.delay)
+        return min(wait, _MAX_RETRY_WAIT)
 
 
 @dataclass

@@ -14,19 +14,12 @@ VAULT = ROOT / "HermesVault"
 ENTITY = VAULT / "knowledge" / "entity"
 RELATED = VAULT / "knowledge" / "related"
 WIKI = VAULT / "wiki"
+CATEGORIES_FILE = ROOT / "processor" / "prompts" / "recommend_categories.json"
 
-# 카테고리별 엔티티 타입 매핑
-_STOCK_KEYWORDS = {
-    "삼성전자",
-    "SK하이닉스",
-    "NAVER",
-    "현대차",
-    "한화솔루션",
-    "효성중공업",
-    "KOSPI",
-    "KODEX 200",
-}
-_JOB_KEYWORDS = {"김캐디", "패이타랩", "레벨스", "두핸즈", "이몰디노", "플렉스"}
+
+def _load_categories() -> dict[str, set[str]]:
+    raw = json.loads(CATEGORIES_FILE.read_text(encoding="utf-8"))
+    return {category: set(names) for category, names in raw.items()}
 
 
 class RecommendProcessor:
@@ -40,6 +33,8 @@ class RecommendProcessor:
         """
         now = time.time()
         scores: dict[str, dict] = {}
+        categories = _load_categories()
+        allowed = categories.get(category, set())
 
         # entity 파일 순회
         for entity_file in ENTITY.glob("*-entity.json"):
@@ -57,9 +52,7 @@ class RecommendProcessor:
                     continue
 
                 # 카테고리 필터
-                if category == "stock" and name not in _STOCK_KEYWORDS:
-                    continue
-                if category == "job" and name not in _JOB_KEYWORDS:
+                if name not in allowed:
                     continue
 
                 if name not in scores:

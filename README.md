@@ -283,3 +283,10 @@ sudo journalctl -u gina-knowledge -f
 | Job briefing | Backend job postings briefing |
 
 > Channel IDs are stored in `.env` (not committed).
+
+---
+
+## Roadmap
+
+- GitHub ingest provider (issues/PRs → vault) — planned, not started
+- Claude ingest provider — planned, not started

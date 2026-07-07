@@ -36,6 +36,7 @@ class RelatedProcessor:
             return
 
         generated = 0
+        prompt_template = PROMPT.read_text(encoding="utf-8")
 
         # Collect existing vault documents for grounding
         existing_docs: list[str] = []
@@ -54,21 +55,9 @@ class RelatedProcessor:
 
                 logger.info(f"[RELATED] {file.name}")
                 summary = file.read_text(encoding="utf-8")
-                prompt = f"""아래 문서를 읽고 관련 문서를 추천해주세요.
-
-조건
-- Markdown [[문서명]] 형식으로만 출력
-- 아래 [존재하는 문서 목록] 에서만 선택
-- 최대 10개, 중복 제거
-- 목록에 없는 문서는 절대 추가하지 말 것
-
-[존재하는 문서 목록]
-{doc_list}
-
-====================
-
-{summary}
-"""
+                prompt = prompt_template.replace("{doc_list}", doc_list).replace(
+                    "{summary}", summary
+                )
 
                 try:
                     related = client.ask(prompt)

@@ -196,8 +196,8 @@ class Evaluator:
                         stem = Path(link).stem if "." in link else link.strip()
                         if stem and stem not in existing:
                             q.broken_references += 1
-                except Exception:
-                    pass
+                except Exception as e:
+                    logger.debug(f"[EVAL] skip corrupt file: {rf.name} ({e})")
 
         # Duplicate entity names
         seen: dict[str, int] = {}
@@ -209,8 +209,8 @@ class Evaluator:
                         name = (e.get("name") or "").strip().lower()
                         if name:
                             seen[name] = seen.get(name, 0) + 1
-                except Exception:
-                    pass
+                except Exception as e:
+                    logger.debug(f"[EVAL] skip corrupt file: {ef.name} ({e})")
         q.duplicate_entity_names = sum(1 for c in seen.values() if c > 1)
 
         return q
@@ -233,8 +233,8 @@ class Evaluator:
                             entity_names.add(n)
                             nl = n.lower()
                             name_counts[nl] = name_counts.get(nl, 0) + 1
-                except Exception:
-                    pass
+                except Exception as e:
+                    logger.debug(f"[EVAL] skip corrupt file: {ef.name} ({e})")
 
         g.total_nodes = len(entity_names)
         g.duplicated_entities = sum(1 for c in name_counts.values() if c > 1)
@@ -246,7 +246,8 @@ class Evaluator:
                 src = rf.stem
                 try:
                     text = rf.read_text(encoding="utf-8")
-                except Exception:
+                except Exception as e:
+                    logger.debug(f"[EVAL] skip corrupt file: {rf.name} ({e})")
                     continue
                 links = _WIKILINK.findall(text)
                 if links:
@@ -372,7 +373,8 @@ class Evaluator:
             return []
         try:
             return json.loads(EVAL_HISTORY_FILE.read_text(encoding="utf-8"))
-        except Exception:
+        except Exception as e:
+            logger.debug(f"[EVAL] skip corrupt history: {EVAL_HISTORY_FILE.name} ({e})")
             return []
 
     def _save_history(

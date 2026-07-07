@@ -1,4 +1,6 @@
 import json
+import os
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -25,7 +27,7 @@ class ProcessingState:
         self.state[str(file.resolve())] = file.stat().st_mtime
 
     def save(self) -> None:
-        self.file.write_text(
-            json.dumps(self.state, ensure_ascii=False, indent=4),
-            encoding="utf-8",
-        )
+        fd, tmp_path = tempfile.mkstemp(dir=STATE_DIR, suffix=".tmp")
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            json.dump(self.state, f, ensure_ascii=False, indent=4)
+        os.replace(tmp_path, self.file)
