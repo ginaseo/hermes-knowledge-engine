@@ -45,6 +45,9 @@ See [INSTALL.md](INSTALL.md) for full setup instructions.
 |----------|----------|-------------|
 | `HERMES_API_URL` | Yes | Base URL of the LLM API (OpenAI-compatible) |
 | `HERMES_API_KEY` | Yes | API key for authentication |
+| `HERMES_MODEL` | Yes | LLM model name (e.g. `llama-3.3-70b-versatile`) |
+| `SLACK_BOT_TOKEN` | Yes | Slack Bot Token (`xoxb-...`) |
+| `SLACK_CHANNEL_IDS` | Yes | Comma-separated Slack channel IDs |
 | `HERMES_VAULT` | No | Path to vault directory (default: `./HermesVault`) |
 | `LOG_LEVEL` | No | Logging level: `DEBUG`, `INFO`, `WARNING` (default: `INFO`) |
 | `HERMES_MODEL` | Yes | LLM model name |
