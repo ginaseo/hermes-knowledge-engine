@@ -5,7 +5,6 @@ from pathlib import Path
 
 from processor import log as _log
 from processor.cleaner import Cleaner
-from processor.description_fill_processor import DescriptionFillProcessor
 from processor.entity_processor import EntityProcessor
 from processor.keyword_processor import KeywordProcessor
 from processor.markdown_processor import MarkdownProcessor
@@ -67,7 +66,6 @@ class ProcessorRunner:
             ("entity", EntityProcessor()),
             ("keyword", KeywordProcessor()),
             ("related", RelatedProcessor()),
-            ("description_fill", DescriptionFillProcessor()),
             ("cleaner", Cleaner()),
             ("index", VaultIndexer()),
             ("validator", Validator()),

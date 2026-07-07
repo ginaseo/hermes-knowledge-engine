@@ -1,4 +1,5 @@
 import json
+import re
 from json import JSONDecodeError
 from pathlib import Path
 
@@ -124,6 +125,10 @@ class EntityProcessor:
                 name = name[:-3]
 
             name = " ".join(name.split())
+            # 파일명에 사용할 수 없는 문자 제거
+            name = re.sub(r'[/\\:*?"<>|]', "_", name).strip("_")
+            if not name:
+                continue
             name = project_alias.get(name, name)
 
             if entity_type == "Project":
