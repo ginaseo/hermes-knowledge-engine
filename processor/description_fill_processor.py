@@ -1,5 +1,6 @@
 import json
 import re
+import time
 from pathlib import Path
 
 from processor.llm.client import LLMClient
@@ -46,9 +47,9 @@ class DescriptionFillProcessor:
             logger.info("[SKIP] No entity changes.")
             return
 
-        targets = [f for f in WIKI.glob("*.md") if self._stub_type(f) in _TARGET_TYPES]
+        all_wiki = [f for f in WIKI.glob("*.md") if self._stub_type(f) in _TARGET_TYPES]
 
-        if not targets:
+        if not all_wiki:
             logger.info("[INFO] No wiki stubs to enrich.")
             for f in entity_files:
                 state.update(f)
@@ -62,6 +63,21 @@ class DescriptionFillProcessor:
         )
         source_index = self._build_source_index(entity_files, alias)
         sources_done = self._load_sources_done()
+
+        # 최근 7일 내 수정된 entity 파일에서 언급된 wiki만 처리
+        now = time.time()
+        recent_stems = {
+            f.stem.replace("-entity", "")
+            for f in entity_files
+            if (now - f.stat().st_mtime) < 7 * 86400
+        }
+        targets = [f for f in all_wiki if source_index.get(f.stem.lower(), set()) & recent_stems]
+        if not targets:
+            logger.info("[SKIP] No recently updated wiki stubs.")
+            for f in entity_files:
+                state.update(f)
+            state.save()
+            return
         prompt_template = PROMPT.read_text(encoding="utf-8")
         generated = 0
 

@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 VAULT = ROOT / "HermesVault"
 SUMMARY = VAULT / "knowledge" / "summary"
 KEYWORD = VAULT / "knowledge" / "keywords"
+PROMPT = ROOT / "processor" / "prompts" / "keyword_prompt.txt"
 
 logger = get_logger(__name__)
 
