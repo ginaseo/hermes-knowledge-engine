@@ -1,4 +1,13 @@
 # Changelog
+## Unreleased (2026-07-13)
+
+### Changed
+
+- Project renamed `gina-knowledge-engine` → `hermes-knowledge-engine` (repo URL, package name)
+  - GitHub repo renamed (GitHub redirects the old URL)
+  - Local clone directory rename pending (deferred — working directory locked by active session)
+  - Deploy server path `/home/ubuntu/gina-knowledge-engine` intentionally left unchanged
+
 ## v1.2.1 (2026-07-07)
 
 ### Added

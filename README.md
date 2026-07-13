@@ -1,4 +1,4 @@
-# Gina Knowledge Engine
+# Hermes Knowledge Engine
 
 A personal knowledge pipeline that automatically collects Slack messages and processes them into a structured Obsidian vault using an LLM.
 
@@ -22,8 +22,8 @@ A personal knowledge pipeline that automatically collects Slack messages and pro
 
 ```bash
 # Clone and set up a virtual environment
-git clone https://github.com/ginaseo/gina-knowledge-engine.git
-cd gina-knowledge-engine
+git clone https://github.com/ginaseo/hermes-knowledge-engine.git
+cd hermes-knowledge-engine
 python -m venv .venv
 .venv\Scripts\activate      # Windows
 # source .venv/bin/activate  # Linux/macOS
@@ -52,18 +52,6 @@ See [INSTALL.md](INSTALL.md) for full setup instructions.
 | `LOG_LEVEL` | No | Logging level: `DEBUG`, `INFO`, `WARNING` (default: `INFO`) |
 
 Set these in a `.env` file in the project root.
-
-### Supported LLM Providers
-
-| Provider | API URL | Free Tier | Recommended Model |
-|----------|---------|-----------|-------------------|
-| Cerebras | https://api.cerebras.ai/v1 | Free | gpt-oss-120b |
-| Groq | https://api.groq.com/openai/v1 | 100,000 tokens/day | llama-3.3-70b-versatile |
-| Gemini | https://generativelanguage.googleapis.com/v1beta/openai | 1,500 requests/day | gemini-2.0-flash |
-| OpenRouter | https://openrouter.ai/api/v1 | 50 requests/day | openrouter/free |
-| OpenAI | https://api.openai.com/v1 | Paid | gpt-4o-mini |
-
----
 
 ## Usage
 
@@ -128,7 +116,7 @@ knowledge/summary/
 ## Folder Structure
 
 ```
-gina-knowledge-engine/
+hermes-knowledge-engine/
 ├── processor/
 │   ├── config.py               # Centralized env config + fail-fast validation
 │   ├── log.py                  # Logging setup (thread-local capture)
