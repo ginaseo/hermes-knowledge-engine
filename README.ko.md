@@ -47,7 +47,7 @@ cp .env.example .env
 hermes run
 ```
 
-전체 설치, 환경 변수, 개발 환경 설정은 [INSTALL.md](INSTALL.md) 참고.
+전체 설치, 환경 변수, 개발 환경 설정은 [INSTALL.ko.md](docs/INSTALL.ko.md) 참고.
 
 ### 자주 쓰는 명령어
 
@@ -64,10 +64,10 @@ hermes --help               # 그 외 전체 명령어
 
 ## 더 알아보기
 
-- [INSTALL.md](INSTALL.md) — 전체 설치, 설정, 개발 환경 세팅
-- [docs/pipeline.md](docs/pipeline.md) — 프로세서 파이프라인, 폴더 구조, 캐싱/증분 처리 상세
-- [docs/ingest-sources.md](docs/ingest-sources.md) — Slack & Claude Code provider, 새 소스 추가 방법
-- [docs/operations.md](docs/operations.md) — daemon 모드, 평가, 검색 벤치마크, 배포 관련 참고사항
-- [docs/vault-sync.md](docs/vault-sync.md) — Syncthing으로 여러 기기 간 vault 동기화
-- [MCP.md](MCP.md) — MCP 서버 설정 및 도구
-- [ARCHITECTURE.md](ARCHITECTURE.md) — 시스템 설계
+- [INSTALL.ko.md](docs/INSTALL.ko.md) — 전체 설치, 설정, 개발 환경 세팅
+- [docs/pipeline.ko.md](docs/pipeline.ko.md) — 프로세서 파이프라인, 폴더 구조, 캐싱/증분 처리 상세
+- [docs/ingest-sources.ko.md](docs/ingest-sources.ko.md) — Slack & Claude Code provider, 새 소스 추가 방법
+- [docs/operations.ko.md](docs/operations.ko.md) — daemon 모드, 평가, 검색 벤치마크, 배포 관련 참고사항
+- [docs/vault-sync.ko.md](docs/vault-sync.ko.md) — Syncthing으로 여러 기기 간 vault 동기화
+- [MCP.ko.md](docs/MCP.ko.md) — MCP 서버 설정 및 도구
+- [ARCHITECTURE.ko.md](docs/ARCHITECTURE.ko.md) — 시스템 설계

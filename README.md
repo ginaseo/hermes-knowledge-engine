@@ -50,7 +50,7 @@ cp .env.example .env
 hermes run
 ```
 
-See [INSTALL.md](INSTALL.md) for full setup, environment variables, and dev setup.
+See [INSTALL.md](docs/INSTALL.md) for full setup, environment variables, and dev setup.
 
 ### Common Commands
 
@@ -67,10 +67,10 @@ hermes --help               # everything else
 
 ## Learn More
 
-- [INSTALL.md](INSTALL.md) — full installation, configuration, and dev setup
+- [INSTALL.md](docs/INSTALL.md) — full installation, configuration, and dev setup
 - [docs/pipeline.md](docs/pipeline.md) — processor pipeline, folder structure, caching/incremental details
 - [docs/ingest-sources.md](docs/ingest-sources.md) — Slack & Claude Code providers, adding a new source
 - [docs/operations.md](docs/operations.md) — daemon mode, evaluation, retrieval benchmark, deployment notes
 - [docs/vault-sync.md](docs/vault-sync.md) — mirroring the vault across machines with Syncthing
-- [MCP.md](MCP.md) — MCP server setup and tools
-- [ARCHITECTURE.md](ARCHITECTURE.md) — system design
+- [MCP.md](docs/MCP.md) — MCP server setup and tools
+- [ARCHITECTURE.md](docs/ARCHITECTURE.md) — system design
