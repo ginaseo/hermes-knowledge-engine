@@ -113,6 +113,7 @@ class EntityProcessor:
         existing_projects: dict[str, str],
     ) -> None:
         seen: set[tuple[str, str]] = set()
+        folder_index: dict[Path, dict[str, str]] = {}
 
         for entity in entities:
             entity_type = entity.get("type", "").strip()
@@ -144,10 +145,14 @@ class EntityProcessor:
             if (folder / name).is_dir():
                 continue
 
-            md = folder / f"{name}.md"
-            if not md.exists():
+            if folder not in folder_index:
+                folder_index[folder] = {f.stem.lower(): f.name for f in folder.glob("*.md")}
+
+            if name.lower() not in folder_index[folder]:
+                md = folder / f"{name}.md"
                 md.write_text(
                     f"---\ntype: {entity_type}\ncreated: auto\n---\n\n"
                     f"# {name}\n\n## Description\n\nTODO\n\n## Related\n\n",
                     encoding="utf-8",
                 )
+                folder_index[folder][name.lower()] = md.name

@@ -116,6 +116,29 @@ def test_deduplicates_entities(vault):
     assert len(list((vault / "projects").glob("*.md"))) == 1
 
 
+def test_dedup_ignores_case_across_runs(vault):
+    """Same entity re-extracted with different casing must not spawn a duplicate stub.
+
+    Regression: on case-sensitive filesystems, `Path.exists()` missed an
+    already-written "Architecture.md" when the next run's entity name came
+    back as "architecture", creating a second stub.
+    """
+    src1 = vault / "knowledge" / "summary" / "g1-summary.md"
+    src1.write_text("text", encoding="utf-8")
+    entities1 = [{"type": "Concept", "name": "Architecture"}]
+    with patch("processor.entity_processor.LLMClient", return_value=_mock_client(entities1)):
+        EntityProcessor().process()
+
+    src2 = vault / "knowledge" / "summary" / "g2-summary.md"
+    src2.write_text("text", encoding="utf-8")
+    entities2 = [{"type": "Concept", "name": "architecture"}]
+    with patch("processor.entity_processor.LLMClient", return_value=_mock_client(entities2)):
+        EntityProcessor().process()
+
+    matches = list((vault / "wiki").glob("[Aa]rchitecture.md"))
+    assert len(matches) == 1
+
+
 def test_skips_empty_name(vault):
     src = vault / "knowledge" / "summary" / "e-summary.md"
     src.write_text("text", encoding="utf-8")
