@@ -14,7 +14,7 @@ VAULT = ROOT / "HermesVault"
 
 load_dotenv(ROOT / ".env")
 
-_DEFAULT_SOURCE = r"C:\Archive\StockAuto\krx-brief\results"
+_DEFAULT_SOURCE = r"C:\CompWork\krx-brief\results"
 KRX_SOURCE = Path(os.getenv("KRX_RESULTS_DIR", _DEFAULT_SOURCE))
 
 
