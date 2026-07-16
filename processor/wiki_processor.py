@@ -1,12 +1,13 @@
 from pathlib import Path
 
 from processor.log import get_logger
+from processor.markdown_processor import SOURCE_NAMES
 from processor.processing_state import ProcessingState
 
 ROOT = Path(__file__).resolve().parents[1]
 VAULT = ROOT / "HermesVault"
-INPUT = VAULT / "knowledge" / "slack"
-OUTPUT = VAULT / "wiki" / "slack"
+KNOWLEDGE_ROOT = VAULT / "knowledge"
+WIKI_ROOT = VAULT / "wiki"
 
 logger = get_logger(__name__)
 
@@ -17,10 +18,12 @@ class WikiProcessor:
         self.force = False
 
     def process(self) -> None:
-        OUTPUT.mkdir(parents=True, exist_ok=True)
-
         state = ProcessingState("wiki", force=self.force)
-        files = list(INPUT.glob("*.md"))
+        files = [
+            f
+            for source in SOURCE_NAMES
+            for f in (KNOWLEDGE_ROOT / source).glob("*.md")
+        ]
 
         if not files:
             logger.info("[INFO] No markdown files.")
@@ -43,7 +46,10 @@ class WikiProcessor:
                 skipped += 1
                 continue
 
-            output = OUTPUT / file.name
+            source = file.parent.name
+            output_dir = WIKI_ROOT / source
+            output_dir.mkdir(parents=True, exist_ok=True)
+            output = output_dir / file.name
             output.write_text(file.read_text(encoding="utf-8"), encoding="utf-8")
             state.update(file)
             generated += 1

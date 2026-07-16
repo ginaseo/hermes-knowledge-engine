@@ -2,11 +2,12 @@ from pathlib import Path
 
 from processor.llm.client import LLMClient
 from processor.log import get_logger
+from processor.markdown_processor import SOURCE_NAMES
 from processor.processing_state import ProcessingState
 
 ROOT = Path(__file__).resolve().parents[1]
 VAULT = ROOT / "HermesVault"
-INPUT = VAULT / "knowledge" / "slack"
+KNOWLEDGE_ROOT = VAULT / "knowledge"
 OUTPUT = VAULT / "knowledge" / "summary"
 PROMPT = ROOT / "processor" / "prompts" / "summary_prompt.txt"
 
@@ -22,7 +23,11 @@ class SummaryProcessor:
         OUTPUT.mkdir(parents=True, exist_ok=True)
 
         state = ProcessingState("summary", force=self.force)
-        files = list(INPUT.glob("*.md"))
+        files = [
+            f
+            for source in SOURCE_NAMES
+            for f in (KNOWLEDGE_ROOT / source).glob("*.md")
+        ]
 
         if not files:
             logger.info("[INFO] No markdown files.")
