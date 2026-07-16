@@ -18,6 +18,10 @@ logs/
 # IDE
 .idea/
 .vscode/
+.obsidian/
+
+# Syncthing
+.stfolder/
 # OS
 .DS_Store
 Thumbs.db
