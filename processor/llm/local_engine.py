@@ -34,39 +34,208 @@ _TOKEN_RE = re.compile(r"[가-힣]{2,}|[A-Za-z][A-Za-z0-9_.+-]{1,}|\d[\d,.]*%?")
 _NUMERIC_RE = re.compile(r"[\d][\d,.]*\s*(?:%|원|조|억|만원|만|배|건|개|점|위|년|월|일)")
 
 _STOPWORDS = {
-    "그리고", "그래서", "하지만", "그러나", "이런", "저런", "합니다", "있습니다",
-    "때문에", "이것", "저것", "우리", "제가", "저는", "그는", "위해", "대한",
-    "그것", "이제", "지금", "먼저", "다시", "여기", "저기", "그냥", "정말",
-    "있다", "없다", "한다", "된다", "것을", "것은", "것이", "수있는", "합니다만",
+    "그리고",
+    "그래서",
+    "하지만",
+    "그러나",
+    "이런",
+    "저런",
+    "합니다",
+    "있습니다",
+    "때문에",
+    "이것",
+    "저것",
+    "우리",
+    "제가",
+    "저는",
+    "그는",
+    "위해",
+    "대한",
+    "그것",
+    "이제",
+    "지금",
+    "먼저",
+    "다시",
+    "여기",
+    "저기",
+    "그냥",
+    "정말",
+    "있다",
+    "없다",
+    "한다",
+    "된다",
+    "것을",
+    "것은",
+    "것이",
+    "수있는",
+    "합니다만",
     # English function words -- corpus has many English-language conversations
-    "the", "a", "an", "is", "are", "was", "were", "be", "been", "being",
-    "to", "of", "and", "or", "but", "in", "on", "at", "for", "with",
-    "this", "that", "these", "those", "it", "its", "as", "by", "from",
-    "will", "would", "can", "could", "should", "shall", "may", "might",
-    "not", "no", "do", "does", "did", "done", "have", "has", "had",
-    "you", "your", "yours", "we", "our", "ours", "they", "their", "them",
-    "he", "she", "his", "her", "if", "then", "than", "so", "such",
-    "also", "there", "here", "what", "which", "who", "whom", "when",
-    "where", "why", "how", "i.e.", "e.g.", "into", "about", "up", "out",
-    "just", "only", "some", "any", "all", "each", "other", "more", "most",
+    "the",
+    "a",
+    "an",
+    "is",
+    "are",
+    "was",
+    "were",
+    "be",
+    "been",
+    "being",
+    "to",
+    "of",
+    "and",
+    "or",
+    "but",
+    "in",
+    "on",
+    "at",
+    "for",
+    "with",
+    "this",
+    "that",
+    "these",
+    "those",
+    "it",
+    "its",
+    "as",
+    "by",
+    "from",
+    "will",
+    "would",
+    "can",
+    "could",
+    "should",
+    "shall",
+    "may",
+    "might",
+    "not",
+    "no",
+    "do",
+    "does",
+    "did",
+    "done",
+    "have",
+    "has",
+    "had",
+    "you",
+    "your",
+    "yours",
+    "we",
+    "our",
+    "ours",
+    "they",
+    "their",
+    "them",
+    "he",
+    "she",
+    "his",
+    "her",
+    "if",
+    "then",
+    "than",
+    "so",
+    "such",
+    "also",
+    "there",
+    "here",
+    "what",
+    "which",
+    "who",
+    "whom",
+    "when",
+    "where",
+    "why",
+    "how",
+    "i.e.",
+    "e.g.",
+    "into",
+    "about",
+    "up",
+    "out",
+    "just",
+    "only",
+    "some",
+    "any",
+    "all",
+    "each",
+    "other",
+    "more",
+    "most",
 }
 
 # Korean verb/particle endings -- a naive [가-힣]{2,} token match often grabs
 # a sentence-final fragment (e.g. "하지 마세요" -> "마세요") that isn't a real
 # noun/concept. Reject candidates ending in these before treating as a Concept.
 _KO_VERB_ENDINGS = (
-    "습니다", "입니다", "합니다", "합니다만", "해요", "이에요", "예요", "세요",
-    "네요", "군요", "잖아요", "거든요", "니다", "죠", "구요", "은데요", "는데요",
+    "습니다",
+    "입니다",
+    "합니다",
+    "합니다만",
+    "해요",
+    "이에요",
+    "예요",
+    "세요",
+    "네요",
+    "군요",
+    "잖아요",
+    "거든요",
+    "니다",
+    "죠",
+    "구요",
+    "은데요",
+    "는데요",
 )
 
 _TECH_TERMS = [
-    "Python", "Docker", "Kubernetes", "AWS", "EC2", "Slack", "Claude",
-    "ChatGPT", "OpenAI", "DeepSeek", "React", "JavaScript", "TypeScript",
-    "Node.js", "FastAPI", "PostgreSQL", "MySQL", "Redis", "Git", "GitHub",
-    "Jenkins", "CI/CD", "Nginx", "Linux", "Ubuntu", "MCP", "LLM", "API",
-    "JSON", "HTTP", "REST", "GraphQL", "Figma", "Notion", "Obsidian",
-    "Syncthing", "Terraform", "Ollama", "Gemini", "Groq", "Qdrant", "Java",
-    "Spring", "Kafka", "MSA", "SQL", "HTML", "CSS", "Vue", "Next.js",
+    "Python",
+    "Docker",
+    "Kubernetes",
+    "AWS",
+    "EC2",
+    "Slack",
+    "Claude",
+    "ChatGPT",
+    "OpenAI",
+    "DeepSeek",
+    "React",
+    "JavaScript",
+    "TypeScript",
+    "Node.js",
+    "FastAPI",
+    "PostgreSQL",
+    "MySQL",
+    "Redis",
+    "Git",
+    "GitHub",
+    "Jenkins",
+    "CI/CD",
+    "Nginx",
+    "Linux",
+    "Ubuntu",
+    "MCP",
+    "LLM",
+    "API",
+    "JSON",
+    "HTTP",
+    "REST",
+    "GraphQL",
+    "Figma",
+    "Notion",
+    "Obsidian",
+    "Syncthing",
+    "Terraform",
+    "Ollama",
+    "Gemini",
+    "Groq",
+    "Qdrant",
+    "Java",
+    "Spring",
+    "Kafka",
+    "MSA",
+    "SQL",
+    "HTML",
+    "CSS",
+    "Vue",
+    "Next.js",
 ]
 
 
@@ -105,7 +274,7 @@ class LocalHeuristicEngine:
     @staticmethod
     def _content(prompt: str) -> str:
         idx = prompt.rfind(_CONTENT_DELIM)
-        return prompt[idx + len(_CONTENT_DELIM):].strip() if idx != -1 else prompt.strip()
+        return prompt[idx + len(_CONTENT_DELIM) :].strip() if idx != -1 else prompt.strip()
 
     def _tokenize(self, text: str) -> list[str]:
         return [t for t in _TOKEN_RE.findall(text) if t.lower() not in _STOPWORDS and len(t) > 1]
@@ -229,7 +398,9 @@ class LocalHeuristicEngine:
         existing_m = _DESC_FILL_EXISTING_RE.search(prompt)
         existing = existing_m.group(1).strip() if existing_m else ""
 
-        sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+|\n{2,}", source) if len(s.strip()) > 15]
+        sentences = [
+            s.strip() for s in re.split(r"(?<=[.!?])\s+|\n{2,}", source) if len(s.strip()) > 15
+        ]
         description = " ".join(sentences[:2]) or existing[:200] or "TODO"
 
         scored_sent = sorted(
@@ -237,7 +408,7 @@ class LocalHeuristicEngine:
             key=lambda x: -x[0],
         )
         summary_lines = [s for _, s in scored_sent[:4]]
-        summary = "\n".join(f"- {l}" for l in summary_lines)
+        summary = "\n".join(f"- {line}" for line in summary_lines)
 
         entities_json = self._entity(source)
         related_entities, seen_names = [], set()
@@ -265,7 +436,8 @@ class LocalHeuristicEngine:
         m = re.search(r"\[존재하는 문서 목록\]\n(.*?)\n\n=+", prompt, re.S)
         doc_names = (
             [line[2:].strip() for line in m.group(1).splitlines() if line.startswith("- ")]
-            if m else []
+            if m
+            else []
         )
         if not doc_names:
             return ""
@@ -294,7 +466,7 @@ class LocalHeuristicEngine:
         # actual source, not the wrapper's own placeholder text.
         marker = "# Original Content"
         idx = text.find(marker)
-        content = text[idx + len(marker):] if idx != -1 else text
+        content = text[idx + len(marker) :] if idx != -1 else text
 
         title_match = re.search(r"^#+\s*(.+)$", content, re.M)
         title = title_match.group(1).strip() if title_match else "요약"
@@ -310,31 +482,49 @@ class LocalHeuristicEngine:
                 break
 
         todo_lines = [
-            l.strip("-* ").strip() for l in content.splitlines()
-            if re.search(r"TODO|해야\s?함|해야할|필요함", l)
+            line.strip("-* ").strip()
+            for line in content.splitlines()
+            if re.search(r"TODO|해야\s?함|해야할|필요함", line)
         ][:5]
         decision_lines = [
-            l.strip("-* ").strip() for l in content.splitlines()
-            if re.search(r"결정|하기로|채택|확정", l)
+            line.strip("-* ").strip()
+            for line in content.splitlines()
+            if re.search(r"결정|하기로|채택|확정", line)
         ][:5]
 
-        sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+|\n{2,}", content) if len(s.strip()) > 20]
+        sentences = [
+            s.strip() for s in re.split(r"(?<=[.!?])\s+|\n{2,}", content) if len(s.strip()) > 20
+        ]
         scored_sent = sorted(
             ((len(self._tokenize(s)), s) for s in sentences[:400]),
             key=lambda x: -x[0],
         )
-        excerpt = "\n\n".join(s for _, s in scored_sent[:5]) or (sentences[0] if sentences else content[:500])
+        excerpt = "\n\n".join(s for _, s in scored_sent[:5]) or (
+            sentences[0] if sentences else content[:500]
+        )
         keywords = self._keyword_terms(content, top_n=10)
 
         lines = [
-            f"# 요약: {title}", "", "## 핵심 내용", "", excerpt, "",
-            "## 수치 데이터", "",
-            "\n".join(f"- {l}" for l in numeric_lines) if numeric_lines else "해당 없음", "",
-            "## TODO", "",
-            "\n".join(f"- {l}" for l in todo_lines) if todo_lines else "없음", "",
-            "## 결정사항", "",
-            "\n".join(f"- {l}" for l in decision_lines) if decision_lines else "없음", "",
-            "## 중요 키워드", "",
+            f"# 요약: {title}",
+            "",
+            "## 핵심 내용",
+            "",
+            excerpt,
+            "",
+            "## 수치 데이터",
+            "",
+            "\n".join(f"- {line}" for line in numeric_lines) if numeric_lines else "해당 없음",
+            "",
+            "## TODO",
+            "",
+            "\n".join(f"- {line}" for line in todo_lines) if todo_lines else "없음",
+            "",
+            "## 결정사항",
+            "",
+            "\n".join(f"- {line}" for line in decision_lines) if decision_lines else "없음",
+            "",
+            "## 중요 키워드",
+            "",
             ", ".join(f"`{k}`" for k in keywords) if keywords else "없음",
         ]
         return "\n".join(lines)
