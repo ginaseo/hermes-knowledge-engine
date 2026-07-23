@@ -33,6 +33,9 @@ Thumbs.db
 
 # Stray Obsidian Bases file
 무제.base
+
+# Local automation scripts (machine-specific paths/schedules, not source)
+scripts/
 # Claude
 CLAUDE.md
 docs/HANDOVER.md
